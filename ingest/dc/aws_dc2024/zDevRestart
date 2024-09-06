@@ -28,7 +28,7 @@ function stop_stacks {
 function wait_until_stopped {
 	[[ ${DEBUG} ]] && echo 'wait_until_stopped'
 	while true; do
-		docProc=$(docker ps -a | grep -v 'NAME')
+		docProc=$(docker ps | grep -v 'NAME')
 		[[ ${docProc} ]] || break
 		sleep ${SLEEP}
 		[[ ${DEBUG} ]] && echo -e "docker process running:\t ${docProc}"
@@ -40,7 +40,7 @@ function wait_until_stopped {
 
 function remove_kafka_dirs {
 	[[ ${DEBUG} ]] && echo 'remove_kafka_dirs'
-	rm /mnt/data/dc/kafka/logs/* -rf && wait
+	rm /mnt/data/dc/kafka/* -rf && wait
 	tree /mnt/data/dc/
 }
 

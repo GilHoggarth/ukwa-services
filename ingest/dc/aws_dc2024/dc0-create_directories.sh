@@ -48,7 +48,7 @@ test_env_file
 test_storage_path
 
 for _d in \
-	${TMP_STORAGE_PATH} ${KAFKA_LOGS_PATH} \
+	${TMP_STORAGE_PATH} ${KAFKA_PATH} \
 	${HERITRIX_OUTPUT_PATH} ${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} \
 	${CDX_STORAGE_PATH} ${PROMETHEUS_DATA_PATH} ${WARCPROX_PATH} \
 	; do make_directory ${_d}
