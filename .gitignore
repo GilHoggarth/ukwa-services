@@ -4,3 +4,4 @@ access.log
 error.log
 *~
 ingest/fc/h3b.log
+*.swp

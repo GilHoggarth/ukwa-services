@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 ENVFILE=$1
 DEBUG=
 
@@ -39,7 +38,7 @@ function make_directory {
                         exit 1
                 }
 	else
-		echo -e "${_d}\t already exists"
+		[[ ${DEBUG} ]] && echo -e "${_d}\t already exists"
         fi
 }
 
@@ -49,17 +48,11 @@ test_env_file
 test_storage_path
 
 for _d in \
-	${TMP_STORAGE_PATH} ${ZK_DATA_PATH} ${ZK_DATALOG_PATH} ${KAFKA_PATH} \
+	${TMP_STORAGE_PATH} ${KAFKA_LOGS_PATH} \
 	${HERITRIX_OUTPUT_PATH} ${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} \
 	${CDX_STORAGE_PATH} ${PROMETHEUS_DATA_PATH} ${WARCPROX_PATH} \
 	; do make_directory ${_d}
 done
-tree -d ${STORAGE_PATH}
 
-# start FC kafka stack
-#docker stack deploy -c ../fc-kafka/docker-compose.yml fc_kafka
-
-wait
-#sleep 10
-docker service ls
-
+echo -e "\n${STORAGE_PATH} tree structure"
+tree -d ${STORAGE_PATH} | less --no-init --quit-if-one-screen
