@@ -1,6 +1,6 @@
 #!/bin/sh
 ENVFILE=$1
-SLEEP=10
+SLEEP=1
 DEBUG=
 
 
@@ -23,9 +23,9 @@ function test_env_file {
 # script -------------------
 test_env_file
 
-# start DC kafka stack
-echo "Starting DC kafka services"
-docker stack deploy --compose-file=dc1-docker-compose.yaml --detach=true dc1_kafka
+# start DC clamav
+echo "Starting DC clamav"
+docker stack deploy --compose-file=dc3-docker-compose.yaml --detach=true dc3
 
 echo -e "Pausing ${SLEEP} seconds whilst services initialise\n"
 wait
@@ -33,4 +33,4 @@ sleep ${SLEEP}
 
 docker service ls
 echo
-docker service logs --tail 10 dc1_kafka_broker
+docker service logs --tail 10 dc3_clamav_1

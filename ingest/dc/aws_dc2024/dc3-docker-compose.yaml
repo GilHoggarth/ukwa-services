@@ -1,0 +1,20 @@
+version: "3"
+services:
+  # Clamd virus scanning Service
+  clamav:
+    image: clamav/clamav:1.3.2
+    entrypoint: /init-unprivileged
+    user: clamav
+    volumes:
+      - ${CLAMAV_PATH}:/var/lib/clamav
+    deploy:
+      replicas: 4
+
+
+networks:
+  default:
+    driver: overlay
+    # attachable allows external (outside of docker network) access to outside advertised listener
+    attachable: true
+  kafka:
+    name: dc1_kafka_default

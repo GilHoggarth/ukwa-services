@@ -41,12 +41,23 @@ function wait_until_stopped {
 function remove_kafka_dirs {
 	[[ ${DEBUG} ]] && echo 'remove_kafka_dirs'
 	rm /mnt/data/dc/kafka/* -rf && wait
+}
+
+function remove_clamav_dirs {
+	[[ ${DEBUG} ]] && echo 'remove_clamav_dirs'
+	rm /mnt/data/dc/clamav/* -rf && wait
 	tree /mnt/data/dc/
 }
 
 function start_kafka {
 	[[ ${DEBUG} ]] && echo 'start_kafka'
 	./dc1-deploy_aws_dc_kafka.sh aws_dc2024_crawler08-prod.env 
+}
+
+function create_topics {
+	sleep ${SLEEP}
+	[[ ${DEBUG} ]] && echo 'create_topics'
+	./dc2-create_kafka_topics.sh aws_dc2024_crawler08-prod.env 
 }
 
 # script --------
@@ -57,6 +68,9 @@ echo "Ensuring stacks removed"
 stop_stacks
 wait_until_stopped
 remove_kafka_dirs
+remove_clamav_dirs
+
 if ! [[ ${ACTION} == 'stop' ]]; then
 	start_kafka
+	create_topics
 fi

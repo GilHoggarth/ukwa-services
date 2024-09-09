@@ -1,5 +1,6 @@
 #!/bin/sh
 ENVFILE=$1
+CLAMUSER=clamav
 DEBUG=
 
 
@@ -42,6 +43,23 @@ function make_directory {
         fi
 }
 
+function create_clamav_user {
+	# check no 100 id user exists
+	id100=$(id 100 2> /dev/null)
+	if [[ ${id100} ]]; then
+		echo -e "User with id 100 exists"
+		echo -e "ID:\t [${id100}]"
+	else
+		sudo useradd --no-create-home --system --shell /sbin/nologin --uid 100 ${CLAMUSER}
+		echo "User '${CLAMUSER}' id 100 created"
+	fi
+}
+
+function clamav_dir {
+	sudo chmod 755 ${CLAMUSER} ${CLAMAV_PATH}
+	sudo chown -R ${CLAMUSER} ${CLAMAV_PATH}
+	echo "Chmod'd/Chown'd ${CLAMUSER} ${CLAMAV_PATH}"
+}
 
 # script -------------------
 test_env_file
@@ -49,10 +67,14 @@ test_storage_path
 
 for _d in \
 	${TMP_STORAGE_PATH} ${KAFKA_PATH} \
-	${HERITRIX_OUTPUT_PATH} ${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} \
+	${CLAMAV_PATH} ${HERITRIX_OUTPUT_PATH} ${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} \
 	${CDX_STORAGE_PATH} ${PROMETHEUS_DATA_PATH} ${WARCPROX_PATH} \
 	; do make_directory ${_d}
 done
 
 echo -e "\n${STORAGE_PATH} tree structure"
 tree -d ${STORAGE_PATH} | less --no-init --quit-if-one-screen
+
+create_clamav_user
+clamav_dir
+echo

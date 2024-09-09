@@ -17,11 +17,15 @@ Step 1: Create required directories
 -----------------------------------
 
 By running the `dc0` script with the new .env file, the required directories will be created. Note that the primary directory - STORAGE_PATH - has to exist for this script to complete. This attempts to ensure that if extra volumes need to be created and mounted beforehand, this extra setup step is done before running the create directories script. For example,
-* `./dc0-create_directories.sh aws_dc2024_crawler08-prod.env`
+* `./dc0-initialise.sh aws_dc2024_crawler08-prod.env`
 
 Kafka
 -----
 
 The first service required is the kafka queue manager and UI. To deploy:
-* `./dc-deploy_aws_dc_kafka.sh aws_dc2024_crawler08-prod.env`
+* `./dc1-deploy_aws_dc_kafka.sh aws_dc2024_crawler08-prod.env`
 
+After the kafka service is deployed, the kafka queues (known as topics in Kafka) need to be created, by:
+* `./dc2-create_kafka_topics.sh aws_dc2024_crawler08-prod.env`
+
+Viewing the Kafka UI now should show **dc_cluster** under the Dasboard, and within this dc_cluster, 3 topics should exist for the domain crawl: dc.tocrawl, dc.inscope, and dc.crawled. There should also be a validated broker showing the EC2 internal IP.

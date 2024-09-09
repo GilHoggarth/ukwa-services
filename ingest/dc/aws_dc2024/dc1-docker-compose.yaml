@@ -3,9 +3,9 @@
 
 version: "3"
 services:
-  kafka_broker:
+  broker:
     image: ${KAFKA_IMAGE}
-    hostname: kafka_broker
+    hostname: broker
     user: ${USER_ID}
     ulimits:
       nofile:
@@ -38,10 +38,10 @@ services:
       #- KAFKA_LOG4J_LOGGERs=kafka=DEBUG
       #- KAFKA_LOG_DIR=/bitnami/kafka/logs
 
-  kafka_ui:
+  ui:
     image: ${KAFKA_UI_IMAGE}
     depends_on: 
-      - kafka_broker
+      - broker
     ports:
       - 9000:8080
     environment:
