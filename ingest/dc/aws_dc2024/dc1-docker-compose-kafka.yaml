@@ -31,7 +31,8 @@ services:
       # ukwa
       - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
       - KAFKA_CFG_NUM_PARTITIONS=32
-      - KAFKA_HEAP_OPTS=-Xmx4g -Xms4g
+      - KAFKA_HEAP_OPTS=-Xmx8g -Xms8g
+      - KAFKA_JMX_OPTS=-javaagent:/prom-jmx/jmx_prometheus_javaagent-0.10.jar=7071:/prom-jmx/prom-jmx-agent-config-kafka.yml
       #- LOG_RETENTION_HOURS=-1
       #- LOG_RETENTION_BYTES=-1
       #- BITNAMI_DEBUG=no

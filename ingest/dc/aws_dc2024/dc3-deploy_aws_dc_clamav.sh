@@ -25,12 +25,10 @@ test_env_file
 
 # start DC clamav
 echo "Starting DC clamav"
-docker stack deploy --compose-file=dc3-docker-compose.yaml --detach=true dc3
+docker stack deploy --compose-file=dc3-docker-compose-clamav.yaml --detach=true dc3_clamav
 
 echo -e "Pausing ${SLEEP} seconds whilst services initialise\n"
 wait
 sleep ${SLEEP}
 
 docker service ls
-echo
-docker service logs --tail 10 dc3_clamav_1

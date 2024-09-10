@@ -41,11 +41,6 @@ function wait_until_stopped {
 function remove_kafka_dirs {
 	[[ ${DEBUG} ]] && echo 'remove_kafka_dirs'
 	rm /mnt/data/dc/kafka/* -rf && wait
-}
-
-function remove_clamav_dirs {
-	[[ ${DEBUG} ]] && echo 'remove_clamav_dirs'
-	rm /mnt/data/dc/clamav/* -rf && wait
 	tree /mnt/data/dc/
 }
 
@@ -68,7 +63,6 @@ echo "Ensuring stacks removed"
 stop_stacks
 wait_until_stopped
 remove_kafka_dirs
-remove_clamav_dirs
 
 if ! [[ ${ACTION} == 'stop' ]]; then
 	start_kafka
