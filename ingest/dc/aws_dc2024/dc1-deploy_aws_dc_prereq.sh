@@ -1,6 +1,6 @@
 #!/bin/sh
 ENVFILE=$1
-SLEEP=1
+SLEEP=5
 DEBUG=
 
 
@@ -23,9 +23,9 @@ function test_env_file {
 # script -------------------
 test_env_file
 
-# start DC clamav
-echo "Starting DC clamav"
-docker stack deploy --compose-file=dc3-docker-compose-clamav.yaml --detach=true dc3_clamav
+# start DC kafka stack
+echo "Starting DC kafka services"
+docker stack deploy --compose-file=dc1-docker-compose.yaml --detach=true dc_prereq
 
 echo -e "Pausing ${SLEEP} seconds whilst services initialise\n"
 wait

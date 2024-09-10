@@ -1,0 +1,52 @@
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.483Z caller=main.go:645 level=info msg="Starting Prometheus Server" mode=server version="(version=2.54.1, branch=HEAD, revision=e6cfa720fbe6280153fab13090a483dbd40bece3)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=main.go:645 level=info msg="Starting Prometheus Server" mode=server version="(version=2.54.1, branch=HEAD, revision=e6cfa720fbe6280153fab13090a483dbd40bece3)"
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.483Z caller=main.go:650 level=info build_context="(go=go1.22.6, platform=linux/amd64, user=root@812ffd741951, date=20240827-10:56:41, tags=netgo,builtinassets,stringlabels)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=main.go:650 level=info build_context="(go=go1.22.6, platform=linux/amd64, user=root@812ffd741951, date=20240827-10:56:41, tags=netgo,builtinassets,stringlabels)"
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.483Z caller=main.go:651 level=info host_details="(Linux 5.14.0-427.33.1.el9_4.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Aug 16 10:56:24 EDT 2024 x86_64 2a9361f701fd (none))"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=main.go:651 level=info host_details="(Linux 5.14.0-427.33.1.el9_4.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Aug 16 10:56:24 EDT 2024 x86_64 44add460adf9 (none))"
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.483Z caller=main.go:652 level=info fd_limits="(soft=1073741816, hard=1073741816)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=main.go:652 level=info fd_limits="(soft=1073741816, hard=1073741816)"
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.483Z caller=main.go:653 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=main.go:653 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | ts=2024-09-10T16:54:51.990Z caller=query_logger.go:114 level=error component=activeQueryTracker msg="Error opening query log file" file=/prometheus/queries.active err="open /prometheus/queries.active: permission denied"
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | ts=2024-09-10T16:54:40.484Z caller=query_logger.go:114 level=error component=activeQueryTracker msg="Error opening query log file" file=/prometheus/queries.active err="open /prometheus/queries.active: permission denied"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | panic: Unable to create mmap-ed active query log
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | panic: Unable to create mmap-ed active query log
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | 
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | 
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | goroutine 1 [running]:
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | goroutine 1 [running]:
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | github.com/prometheus/prometheus/promql.NewActiveQueryTracker({0x7fffbe0ace83, 0xb}, 0x14, {0x451ec40, 0xc000bc23c0})
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | 	/app/promql/query_logger.go:146 +0x425
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | github.com/prometheus/prometheus/promql.NewActiveQueryTracker({0x7ffdc4181e83, 0xb}, 0x14, {0x451ec40, 0xc000d07180})
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | main.main()
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | 	/app/promql/query_logger.go:146 +0x425
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | main.main()
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.808Z caller=main.go:645 level=info msg="Starting Prometheus Server" mode=server version="(version=2.54.1, branch=HEAD, revision=e6cfa720fbe6280153fab13090a483dbd40bece3)"
+dc_prereq_prometheus.1.iy5hajkf4dc0@dc    | 	/app/cmd/prometheus/main.go:776 +0x891e
+dc_prereq_prometheus.1.mwa0izs5yle2@dc    | 	/app/cmd/prometheus/main.go:776 +0x891e
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.809Z caller=main.go:650 level=info build_context="(go=go1.22.6, platform=linux/amd64, user=root@812ffd741951, date=20240827-10:56:41, tags=netgo,builtinassets,stringlabels)"
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.809Z caller=main.go:651 level=info host_details="(Linux 5.14.0-427.33.1.el9_4.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Aug 16 10:56:24 EDT 2024 x86_64 3bb6045db912 (none))"
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.809Z caller=main.go:652 level=info fd_limits="(soft=1073741816, hard=1073741816)"
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.809Z caller=main.go:653 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | ts=2024-09-10T16:54:57.809Z caller=query_logger.go:114 level=error component=activeQueryTracker msg="Error opening query log file" file=/prometheus/queries.active err="open /prometheus/queries.active: permission denied"
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | panic: Unable to create mmap-ed active query log
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | 
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | goroutine 1 [running]:
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | github.com/prometheus/prometheus/promql.NewActiveQueryTracker({0x7fff72837e83, 0xb}, 0x14, {0x451ec40, 0xc000a36f00})
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | 	/app/promql/query_logger.go:146 +0x425
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | main.main()
+dc_prereq_prometheus.1.jpi89dp2l1tq@dc    | 	/app/cmd/prometheus/main.go:776 +0x891e
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.241Z caller=main.go:645 level=info msg="Starting Prometheus Server" mode=server version="(version=2.54.1, branch=HEAD, revision=e6cfa720fbe6280153fab13090a483dbd40bece3)"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.241Z caller=main.go:650 level=info build_context="(go=go1.22.6, platform=linux/amd64, user=root@812ffd741951, date=20240827-10:56:41, tags=netgo,builtinassets,stringlabels)"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.242Z caller=main.go:651 level=info host_details="(Linux 5.14.0-427.33.1.el9_4.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Aug 16 10:56:24 EDT 2024 x86_64 2ce5cd2a5a80 (none))"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.242Z caller=main.go:652 level=info fd_limits="(soft=1073741816, hard=1073741816)"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.242Z caller=main.go:653 level=info vm_limits="(soft=unlimited, hard=unlimited)"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | ts=2024-09-10T16:54:46.242Z caller=query_logger.go:114 level=error component=activeQueryTracker msg="Error opening query log file" file=/prometheus/queries.active err="open /prometheus/queries.active: permission denied"
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | panic: Unable to create mmap-ed active query log
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | 
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | goroutine 1 [running]:
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | github.com/prometheus/prometheus/promql.NewActiveQueryTracker({0x7ffe6959be83, 0xb}, 0x14, {0x451ec40, 0xc000967d10})
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | 	/app/promql/query_logger.go:146 +0x425
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | main.main()
+dc_prereq_prometheus.1.w71tlg9cpcun@dc    | 	/app/cmd/prometheus/main.go:776 +0x891e

@@ -3,20 +3,21 @@
 
 version: "3"
 services:
-  broker:
+  # kafka & kafka_ui -------------------------------------------------------------------------------------
+  kafka:
     image: ${KAFKA_IMAGE}
-    hostname: broker
+    hostname: kafka
     user: ${USER_ID}
     ulimits:
       nofile:
         soft: 102400
         hard: 204800
     ports:
-      - "9092:9092"
-      - "9094:9094"
+      - 9094:9094
+      - 7071:7071
     volumes:
       - ${KAFKA_PATH}:/bitnami/kafka
-
+      - ./prom-jmx:/prom-jmx
     environment:
       - KAFKA_ENABLE_KRAFT=yes
       - KAFKA_CFG_PROCESS_ROLES=broker,controller
@@ -33,16 +34,11 @@ services:
       - KAFKA_CFG_NUM_PARTITIONS=32
       - KAFKA_HEAP_OPTS=-Xmx8g -Xms8g
       - KAFKA_JMX_OPTS=-javaagent:/prom-jmx/jmx_prometheus_javaagent-0.10.jar=7071:/prom-jmx/prom-jmx-agent-config-kafka.yml
-      #- LOG_RETENTION_HOURS=-1
-      #- LOG_RETENTION_BYTES=-1
-      #- BITNAMI_DEBUG=no
-      #- KAFKA_LOG4J_LOGGERs=kafka=DEBUG
-      #- KAFKA_LOG_DIR=/bitnami/kafka/logs
 
-  ui:
+  kafka_ui:
     image: ${KAFKA_UI_IMAGE}
     depends_on: 
-      - broker
+      - kafka
     ports:
       - 9000:8080
     environment:
@@ -51,6 +47,38 @@ services:
       - DYNAMIC_CONFIG_ENABLED=true
       - LOGGING_LEVEL_ROOT=warn
 
+
+  # clamav -----------------------------------------------------------------------------------------------
+  clamav:
+    image: ${CLAMAV_IMAGE}
+    entrypoint: /init-unprivileged
+    user: clamav
+    volumes:
+      - ${CLAMAV_PATH}:/var/lib/clamav
+    deploy:
+      replicas: 16
+
+
+  # prometheus -------------------------------------------------------------------------------------------
+  prometheus:
+    image: ${PROMETHEUS_IMAGE}
+    user: ${USER_ID}
+    ports:
+      - 9191:9090
+    volumes:
+      - "${PROMETHEUS_CFG_PATH}:/etc/prometheus"
+      - "${PROMETHEUS_DATA_PATH}:/prometheus"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=1000d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.external-url=http://${CRAWL_HOST_LAN_IP}:9191/'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+    networks:
+      - default
 
 networks:
   default:

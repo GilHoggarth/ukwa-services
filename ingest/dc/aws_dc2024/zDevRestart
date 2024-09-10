@@ -44,13 +44,12 @@ function remove_kafka_dirs {
 	tree /mnt/data/dc/
 }
 
-function start_kafka {
-	[[ ${DEBUG} ]] && echo 'start_kafka'
-	./dc1-deploy_aws_dc_kafka.sh aws_dc2024_crawler08-prod.env 
+function start_prereqs {
+	[[ ${DEBUG} ]] && echo 'start_prereqs'
+	./dc1-deploy_aws_dc_prereq.sh aws_dc2024_crawler08-prod.env 
 }
 
 function create_topics {
-	sleep ${SLEEP}
 	[[ ${DEBUG} ]] && echo 'create_topics'
 	./dc2-create_kafka_topics.sh aws_dc2024_crawler08-prod.env 
 }
@@ -65,6 +64,7 @@ wait_until_stopped
 remove_kafka_dirs
 
 if ! [[ ${ACTION} == 'stop' ]]; then
-	start_kafka
+	start_prereqs
+	sleep ${SLEEP}
 	create_topics
 fi
