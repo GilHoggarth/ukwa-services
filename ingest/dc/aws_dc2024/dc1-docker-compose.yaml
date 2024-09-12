@@ -48,8 +48,8 @@ services:
       - LOGGING_LEVEL_ROOT=warn
 
 
-  # clamav -----------------------------------------------------------------------------------------------
-  clamav:
+  # clamd ------------------------------------------------------------------------------------------------
+  clamd:
     image: ${CLAMAV_IMAGE}
     entrypoint: /init-unprivileged
     user: clamav

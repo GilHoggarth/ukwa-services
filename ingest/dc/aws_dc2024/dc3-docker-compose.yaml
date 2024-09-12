@@ -1,0 +1,35 @@
+version: "3.2"
+
+services:
+  # CDX service for storing crawl status:
+  cdxserver:
+    image: ${CDX_IMAGE}
+    user: ${USER_ID}
+    # Command arguments
+    # -b bindaddr   CDX service bind IP address
+    # -d datadir    Directory for cdx data indexes
+    # -p port       CDX service port
+    # -t threads    Number of web server threads
+    # -u            UNKNOWN
+    command: "java -jar outbackcdx.jar -b 0.0.0.0 -d /cdx-data -p 8080 -t 5000 -u"
+    ulimits:
+      nofile:
+        soft: 102400
+        hard: 102400
+    ports:
+      - 9090:8080
+    volumes:
+      - "${CDX_STORAGE_PATH}:/cdx-data"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8g"
+
+networks:
+  # Allow attachment of transient web-render containers, external monitoring:
+  default:
+    driver: overlay
+    attachable: true
+  kafka:
+    external:
+      name: dc_prereq_default
