@@ -24,7 +24,7 @@ There are several services that need to exist before the heritrix crawler is ins
 To deploy:
 * `./dc1-deploy_aws_dc_prereq.sh aws_dc2024_crawler08-prod.env`
 
-The kafka service is one of these pre-requisities. Once deployed, the kafka queues (known as topics in Kafka) need to be created, by:
+The kafka service is one of these pre-requisities. If the kafka queues haven't previously been created, then once the pre-requisities have deployed, the kafka queues (known as topics in Kafka) need to be created, by:
 * `./dc2-create_kafka_topics.sh aws_dc2024_crawler08-prod.env`
 
 Viewing the Kafka UI now should show **dc_cluster** under the Dasboard, and within this dc_cluster, 3 topics should exist for the domain crawl: dc.tocrawl, dc.inscope, and dc.crawled. There should also be a validated (green ticked) broker showing the EC2 internal IP.

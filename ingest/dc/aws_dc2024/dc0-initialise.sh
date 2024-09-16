@@ -28,19 +28,19 @@ function test_storage_path {
 
 function make_directory {
 	local _d=$1
-        if [[ "${_d}" == "" ]]; then
-                echo "ERROR: No directory defined - probably not set in ${ENVFILE}"
-                exit 1
-        fi
-        if ! [[ -d ${_d} ]]; then
-                echo -e "Making dir\t ${_d}"
-                mkdir -p ${_d} || {
-                        echo "ERROR: failed to make directory [${_d}]"
-                        exit 1
-                }
+	if [[ "${_d}" == "" ]]; then
+		echo "ERROR: No directory defined - probably not set in ${ENVFILE}"
+		exit 1
+	fi
+	if ! [[ -d ${_d} ]]; then
+		echo -e "Making dir\t ${_d}"
+		mkdir -p ${_d} || {
+			echo "ERROR: failed to make directory [${_d}]"
+			exit 1
+		}
 	else
 		[[ ${DEBUG} ]] && echo -e "${_d}\t already exists"
-        fi
+	fi
 }
 
 function create_clamav_user {
@@ -72,14 +72,24 @@ function prometheus_configs {
 	fi
 }
 
+function create_empty_surts {
+	local _sf
+	for _sf in ${SURTS_NPLD_PATH}/surts.txt ${SURTS_NPLD_PATH}/excluded-surts.txt; do
+		if ! [[ -f ${_sf} ]]; then
+			touch ${_sf}
+			echo "Created surt file ${_sf}"
+		fi
+	done
+}
+
 # script -------------------
 test_env_file
 test_storage_path
 
 for _d in \
-	${TMP_STORAGE_PATH} ${KAFKA_PATH} \
-	${CLAMAV_PATH} ${HERITRIX_OUTPUT_PATH} ${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} \
-	${CDX_STORAGE_PATH} ${PROMETHEUS_CFG_PATH} ${PROMETHEUS_DATA_PATH} ${WARCPROX_PATH} \
+	${TMP_STORAGE_PATH} ${KAFKA_PATH} ${CLAMAV_PATH} ${PROMETHEUS_CFG_PATH} ${PROMETHEUS_DATA_PATH} \
+	${CDX_STORAGE_PATH} ${HERITRIX_OUTPUT_PATH} ${HERITRIX_STATE_PATH} ${HERITRIX_SCRATCH_PATH} \
+	${SURTS_NPLD_PATH} ${NPLD_STATE_PATH} ${WARCPROX_PATH} \
 	; do make_directory ${_d}
 done
 
@@ -89,4 +99,5 @@ tree -d ${STORAGE_PATH} | less --no-init --quit-if-one-screen
 create_clamav_user
 clamav_dir
 prometheus_configs
+create_empty_surts
 echo
