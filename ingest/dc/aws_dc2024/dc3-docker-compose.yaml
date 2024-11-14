@@ -29,6 +29,7 @@ services:
   npld-dc-heritrix-worker:
     image: ${HERITRIX_IMAGE}
     hostname: "npld-dc-heritrix3-worker-{{.Task.Slot}}"
+    user: ${USER_ID}
     ulimits:
       nproc:
         soft: 204800
@@ -41,9 +42,11 @@ services:
       - 8484:8484     # jmx
       - 9118:9118     # metrics
     volumes:
+      - ${HERITRIX_HOME_PATH}:/home/heritrix
       - ${HERITRIX_OUTPUT_PATH}:/heritrix/output
       - ${HERITRIX_STATE_PATH}:/heritrix/state
       - ${HERITRIX_SCRATCH_PATH}:/heritrix/scratch
+      - ${HERITRIX_LOG_PATH}:/heritrix/log
       - ${SURTS_NPLD_PATH}:/shared
       #- "./heritrix/crawler-beans.cxml:/jobs/frequent/crawler-beans.cxml" # Tweak the beans for DC
       - "./heritrix/uriuniqfilter-bloom.xml:/jobs/frequent/uriuniqfilter.xml"     # Use a Bloom filter for the domain crawl
